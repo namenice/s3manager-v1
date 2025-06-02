@@ -1,47 +1,67 @@
 // frontend/src/components/Navbar.jsx
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import '../assets/styles/Navbar.css'; // สร้างไฟล์ CSS นี้ด้วย
+import '../assets/styles/Navbar.css';
 
 const Navbar = () => {
   const { user, isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(prev => !prev);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const handleLogout = () => {
     logout();
-    navigate('/login'); // Redirect ไปหน้า Login หลังจาก Logout
+    setIsDropdownOpen(false);
+    navigate('/login');
   };
 
+  // ลบ handleProfileClick และ handleAdminClick ออกไป เพราะไม่มีแล้ว
+
   return (
-    <nav className="navbar-container">
+    <nav className="navbar">
       <div className="navbar-left">
-        <Link to="/" className="navbar-brand">My App</Link> {/* อาจจะลิงก์ไปหน้า Landing Page */}
-      </div>
-      <div className="navbar-center">
-        {isAuthenticated && (
-          <>
-            {/* แท็บเมนูหลักที่แสดงหลัง Login */}
-            <Link to="/overview" className="nav-item">Overview</Link>
-            <Link to="/profile" className="nav-item">Profile</Link> {/* เพิ่มหน้า Profile ถ้าต้องการ */}
-            
-            {/* เมนูสำหรับ Admin เท่านั้น */}
-            {user && user.role === 'admin' && (
-              <Link to="/admin-panel" className="nav-item nav-admin">Admin Panel</Link>
-            )}
-          </>
-        )}
+        <Link to="/" className="navbar-brand">S3 Manager</Link>
       </div>
       <div className="navbar-right">
         {isAuthenticated ? (
-          <>
-            <span className="navbar-username">Hello, {user?.username}</span>
-            <button onClick={handleLogout} className="nav-button logout-button">Logout</button>
-          </>
+          <div className="user-dropdown-container" ref={dropdownRef}>
+            <button className="user-display-name" onClick={toggleDropdown}>
+              Hello, {user?.username} ▼
+            </button>
+            {isDropdownOpen && (
+              <div className="dropdown-menu">
+                {/* เหลือแค่ Logout */}
+                <div className="dropdown-item" onClick={handleLogout}>Logout</div>
+              </div>
+            )}
+          </div>
         ) : (
           <>
-            <Link to="/login" className="nav-button">Login</Link>
-            <Link to="/register" className="nav-button register-button">Register</Link>
+            {location.pathname !== '/login' && location.pathname !== '/register' && (
+              <>
+                <Link to="/login" className="navbar-auth-link">Login</Link>
+                <Link to="/register" className="navbar-auth-link">Register</Link>
+              </>
+            )}
           </>
         )}
       </div>

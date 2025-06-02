@@ -1,63 +1,61 @@
 // frontend/src/pages/OverviewPage.jsx
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import '../assets/styles/OverviewPage.css'; // ตรวจสอบให้แน่ใจว่าไฟล์นี้ถูกสร้างแล้ว
+import '../assets/styles/OverviewPage.css';
 
 const OverviewPage = () => {
   const { user, isAuthenticated, loading } = useAuth();
   const [files, setFiles] = useState([]);
   const [folders, setFolders] = useState([]);
-  const [currentPath, setCurrentPath] = useState(''); // เพื่อแสดง path ปัจจุบัน
+  const [currentPath, setCurrentPath] = useState('');
+  const location = useLocation();
+
+  const [isAdminMenuOpen, setIsAdminMenuOpen] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated && user) {
-      // โหลดไฟล์และโฟลเดอร์เมื่อผู้ใช้ Login
       fetchItems(currentPath);
     }
-  }, [isAuthenticated, user, currentPath]); // เพิ่ม currentPath เป็น dependency
+  }, [isAuthenticated, user, currentPath]);
 
   const fetchItems = async (path) => {
-    // ในอนาคต เราจะเรียก API ไปยัง Backend เพื่อดึงข้อมูลไฟล์/โฟลเดอร์จาก S3
-    // สำหรับตอนนี้เราจะใช้ข้อมูลจำลอง
-    setLoading(true); // เพิ่ม loading state ในหน้านี้ด้วยถ้าต้องการ
+    // ... (โค้ดจำลอง fetchItems เดิม) ...
     try {
-      // จำลองการดึงข้อมูล
-      await new Promise(resolve => setTimeout(resolve, 500)); // Simulating API call delay
+        await new Promise(resolve => setTimeout(resolve, 500)); // Simulating API call delay
 
-      if (path === '') { // Root directory
-        setFolders([
-          { name: 'My Documents', type: 'folder', id: 'f1' },
-          { name: 'Photos', type: 'folder', id: 'f2' },
-          { name: 'Shared with me', type: 'folder', id: 'f3' },
-        ]);
-        setFiles([
-          { name: 'report.pdf', type: 'file', size: '1.2 MB', modified: '2023-04-01', id: 'file1' },
-          { name: 'presentation.pptx', type: 'file', size: '5.5 MB', modified: '2023-03-20', id: 'file2' },
-          { name: 'my_notes.txt', type: 'file', size: '0.1 MB', modified: '2023-04-05', id: 'file3' },
-        ]);
-      } else if (path === 'My Documents') {
-        setFolders([]);
-        setFiles([
-          { name: 'thesis.docx', type: 'file', size: '3.0 MB', modified: '2023-01-15', id: 'file4' },
-          { name: 'budget.xlsx', type: 'file', size: '0.8 MB', modified: '2023-03-10', id: 'file5' },
-        ]);
-      } else {
-        setFolders([]);
-        setFiles([]);
-      }
-      // setLoading(false);
+        if (path === '') { // Root directory
+          setFolders([
+            { name: 'My Documents', type: 'folder', id: 'f1' },
+            { name: 'Photos', type: 'folder', id: 'f2' },
+            { name: 'Shared with me', type: 'folder', id: 'f3' },
+          ]);
+          setFiles([
+            { name: 'report.pdf', type: 'file', size: '1.2 MB', modified: '2023-04-01', id: 'file1' },
+            { name: 'presentation.pptx', type: 'file', size: '5.5 MB', modified: '2023-03-20', id: 'file2' },
+            { name: 'my_notes.txt', type: 'file', size: '0.1 MB', modified: '2023-04-05', id: 'file3' },
+          ]);
+        } else if (path === 'My Documents') {
+          setFolders([]);
+          setFiles([
+            { name: 'thesis.docx', type: 'file', size: '3.0 MB', modified: '2023-01-15', id: 'file4' },
+            { name: 'budget.xlsx', type: 'file', size: '0.8 MB', modified: '2023-03-10', id: 'file5' },
+          ]);
+        } else {
+          setFolders([]);
+          setFiles([]);
+        }
     } catch (error) {
-      console.error('Failed to fetch items:', error);
-      // setLoading(false);
+        console.error('Failed to fetch items:', error);
     }
   };
 
   const handleFolderClick = (folderName) => {
-    setCurrentPath(folderName); // ในอนาคตจะซับซ้อนกว่านี้ (เช่น path/to/folder)
+    setCurrentPath(folderName);
   };
 
   const handleBackClick = () => {
-    setCurrentPath(''); // กลับไปหน้าหลักชั่วคราว
+    setCurrentPath('');
   };
 
   if (loading) {
@@ -70,12 +68,48 @@ const OverviewPage = () => {
         <button className="new-button">+ New</button>
         <nav className="sidebar-nav">
           <ul>
-            <li className={currentPath === '' ? 'active' : ''} onClick={() => setCurrentPath('')}>
-              <span className="icon">📂</span> My Drive
+            {/* เมนูหลัก */}
+            <li>
+              <Link to="/overview" className={location.pathname === '/overview' ? 'active' : ''}>
+                <span className="icon">📊</span> Overview
+              </Link>
             </li>
-            <li><span className="icon">⭐</span> Starred</li>
-            <li><span className="icon">🕒</span> Recent</li>
-            <li><span className="icon">🗑️</span> Trash</li>
+            <li>
+              <Link to="/overview" className={location.pathname === '/my-bucket' ? 'active' : ''}>
+                <span className="icon">🪣</span> My Bucket
+              </Link>
+            </li>
+            <li>
+              <Link to="/trash" className={location.pathname === '/trash' ? 'active' : ''}>
+                <span className="icon">🗑️</span> Trash
+              </Link>
+            </li>
+            
+            {/* --- เมนู Admin (แสดงเฉพาะ Admin) --- */}
+            {user && user.role === 'admin' && (
+              <li className={`admin-menu-item ${isAdminMenuOpen ? 'open' : ''}`}>
+                {/* กลับไปใช้ลูกศร ▲ / ▼ และวางไว้ด้านขวา */}
+                <div className="admin-menu-toggle" onClick={() => setIsAdminMenuOpen(!isAdminMenuOpen)}>
+                  <span className="icon">⚙️</span> Admin
+                  <span className="toggle-arrow">{isAdminMenuOpen ? '▲' : '▼'}</span> {/* ลูกศรชี้ขึ้น/ลง */}
+                </div>
+                {/* เมนูย่อยของ Admin */}
+                {isAdminMenuOpen && (
+                  <ul className="admin-submenu">
+                    <li>
+                      <Link to="/admin/users" className={location.pathname === '/admin/users' ? 'active' : ''}>
+                        <span className="icon">👥</span> Users
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/admin/buckets" className={location.pathname === '/admin/buckets' ? 'active' : ''}>
+                        <span className="icon">🪣</span> Buckets
+                      </Link>
+                    </li>
+                  </ul>
+                )}
+              </li>
+            )}
           </ul>
         </nav>
         <div className="storage-info">
