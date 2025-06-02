@@ -1,0 +1,54 @@
+/* frontend/src/assets/styles/NotFoundPage.css */
+
+.not-found-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px); /* Adjust based on Navbar height */
+    background-color: #f8f9fa; /* Light grey background */
+    color: #343a40; /* Dark text color */
+    text-align: center;
+    padding: 20px;
+}
+
+.not-found-content {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 50px;
+    max-width: 600px;
+    width: 100%;
+}
+
+.not-found-content h1 {
+    font-size: 6em; /* Large 404 text */
+    color: #dc3545; /* Red color for 404 */
+    margin-bottom: 10px;
+}
+
+.not-found-content h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #495057;
+}
+
+.not-found-content p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.home-link {
+    display: inline-block;
+    background-color: #007bff; /* Primary blue button */
+    color: white;
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+}
+
+.home-link:hover {
+    background-color: #0056b3;
+}

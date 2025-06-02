@@ -1,0 +1,181 @@
+/* frontend/src/assets/styles/LoginPage.css */
+
+/* Main container for the login page - RESPONSIBLE FOR CENTERING THE CARD */
+.login-page-container {
+  display: flex;         /* เปิดใช้งาน Flexbox */
+  justify-content: center; /* จัดลูก (login-card) ให้อยู่กึ่งกลางแนวนอน */
+  align-items: center;   /* จัดลูก (login-card) ให้อยู่กึ่งกลางแนวตั้ง */
+  min-height: 100vh;     /* ทำให้ Container สูงอย่างน้อย 100% ของ viewport height */
+  width: 100%;           /* ทำให้ Container กว้างเต็มหน้าจอ */
+  padding: 20px;         /* เพิ่ม Padding รอบๆ Login Card เพื่อให้มีพื้นที่ */
+  box-sizing: border-box; /* สำคัญ: รวม padding ใน width/height calculation */
+  /* background-color: #f7f7f7; // ไม่จำเป็นต้องมีที่นี่ ถ้า body มีแล้ว */
+}
+
+/* Login Card Style - THE ELEMENT TO BE CENTERED */
+.login-card {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;          /* ทำให้ Card ขยายเต็มความกว้างของ Container (สูงสุด 400px) */
+  max-width: 400px;     /* กำหนดความกว้างสูงสุดของ Card */
+  
+  /* Flexbox สำหรับจัดเนื้อหาภายใน Card (Logo, H2, Form) */
+  display: flex;
+  flex-direction: column; /* จัดเรียงองค์ประกอบภายใน Card ในแนวตั้ง */
+  align-items: center;    /* จัดเนื้อหาภายใน Card ให้อยู่กึ่งกลางแนวนอน */
+  text-align: center;     /* สำรองสำหรับจัดข้อความให้กึ่งกลาง (ถ้า align-items ไม่ครอบคลุมทุก text node) */
+}
+
+/* Logo container (จาก Logo.jsx และ Logo.css) */
+/* ตรวจสอบให้แน่ใจว่าไฟล์ Logo.css ยังมีโค้ดนี้อยู่ */
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.app-logo {
+  width: 150px;
+  height: 60px;
+  margin-bottom: 10px;
+}
+.logo-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: #333;
+  margin-top: -10px;
+}
+
+/* Sign In Text */
+.signin-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+/* Form Container */
+.login-form {
+  width: 100%; /* ทำให้ Form ขยายเต็มความกว้างของ Login Card */
+}
+
+/* Form Group (แต่ละ input) */
+.login-form .form-group {
+  margin-bottom: 20px;
+  width: 100%; /* ให้แต่ละกลุ่ม input กว้างเต็ม */
+}
+
+/* Input Fields */
+.input-field {
+  width: 100%; /* ทำให้ input กว้างเต็ม form-group */
+  padding: 14px 15px;
+  border: none;
+  background-color: #fff;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box; /* สำคัญ: รวม padding ใน width/height */
+  outline: none;
+  font-family: 'Inter', sans-serif;
+  color: #333;
+  box-shadow: inset 0 0 0 1px #ddd;
+}
+
+.input-field::placeholder {
+  color: #999;
+}
+
+.input-field:focus {
+  box-shadow: inset 0 0 0 2px #6CC24A;
+}
+
+/* Password Toggle Icon */
+.password-group {
+  position: relative;
+}
+
+.password-toggle-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #999;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.password-toggle-icon svg {
+  stroke: #999;
+}
+
+/* Form Links (Forgot Password และ Register) */
+.form-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  width: 100%; /* สำคัญ: ให้ container ของลิงก์กว้างเต็มฟอร์ม */
+  font-size: 14px;
+}
+
+.forgot-password-link,
+.register-link {
+  color: #6CC24A;
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+  padding: 5px;
+}
+
+.forgot-password-link:hover,
+.register-link:hover {
+  text-decoration: underline;
+}
+
+/* Login Button */
+.login-button {
+  width: 100%; /* ทำให้ปุ่มกว้างเต็มฟอร์ม */
+  padding: 15px;
+  background-color: #6CC24A;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: 'Inter', sans-serif;
+  margin-top: 20px;
+}
+
+.login-button:hover {
+  background-color: #5AA13B;
+}
+
+/* Message Styles */
+.error-message,
+.success-message {
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 15px;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+.error-message {
+  color: #d9534f;
+  background-color: #f2dede;
+  border: 1px solid #ebccd1;
+}
+
+.success-message {
+  color: #5cb85c;
+  background-color: #dff0d8;
+  border: 1px solid #d6e9c6;
+}

@@ -1,0 +1,21 @@
+/* frontend/src/assets/styles/Logo.css */
+.logo-container {
+  display: flex;
+  flex-direction: column; /* จัดวางแนวตั้ง */
+  align-items: center; /* จัดให้อยู่กึ่งกลางแนวนอน */
+  margin-bottom: 20px;
+}
+
+.app-logo {
+  /* กำหนดขนาดของ SVG */
+  width: 120px; /* Adjust as needed */
+  height: 120px; /* Adjust as needed */
+  margin-bottom: 10px;
+}
+
+.logo-text {
+  font-size: 24px; /* Adjust as needed */
+  font-weight: bold;
+  color: #333; /* Adjust color as needed */
+  font-family: Arial, sans-serif; /* Use your preferred font */
+}

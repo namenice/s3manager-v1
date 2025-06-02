@@ -1,0 +1,114 @@
+/* frontend/src/assets/styles/Navbar.css */
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #282c34; /* สีพื้นหลัง Navbar */
+    padding: 15px 30px;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    position: sticky; /* ทำให้ Navbar อยู่ด้านบนเสมอ */
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-left .navbar-brand {
+    color: #61dafb; /* สีฟ้า */
+    text-decoration: none;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.navbar-center {
+    display: flex;
+    gap: 25px; /* ระยะห่างระหว่างเมนู */
+}
+
+.navbar-center .nav-item {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1em;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar-center .nav-item:hover {
+    background-color: #444;
+}
+
+.navbar-center .nav-item.nav-admin {
+    color: #ffcc00; /* สีทองสำหรับ Admin menu */
+    font-weight: bold;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.navbar-right .navbar-username {
+    font-size: 1em;
+    color: #e0e0e0;
+}
+
+.navbar-right .nav-button {
+    background-color: #61dafb;
+    color: #282c34;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    text-decoration: none; /* สำหรับ Link */
+    display: inline-block;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.navbar-right .nav-button:hover {
+    background-color: #4aadc9;
+}
+
+.navbar-right .register-button {
+    background-color: #28a745; /* สีเขียวสำหรับ Register */
+    color: white;
+}
+
+.navbar-right .register-button:hover {
+    background-color: #218838;
+}
+
+.navbar-right .logout-button {
+    background-color: #dc3545; /* สีแดงสำหรับ Logout */
+    color: white;
+}
+
+.navbar-right .logout-button:hover {
+    background-color: #c82333;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .navbar-container {
+        flex-wrap: wrap;
+        padding: 10px 15px;
+    }
+
+    .navbar-center {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 10px;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .navbar-right {
+        width: 100%;
+        justify-content: center;
+        margin-top: 10px;
+        gap: 10px;
+    }
+}

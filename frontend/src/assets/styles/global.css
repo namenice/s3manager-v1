@@ -1,0 +1,22 @@
+/* frontend/src/assets/styles/global.css */
+
+/* รีเซ็ตค่าพื้นฐานของ HTML และ Body เพื่อให้เต็มจอและไม่มี margin/padding เริ่มต้น */
+html, body, #root {
+  height: 100%; /* ต้องสูงเต็ม 100% */
+  width: 100%;  /* ต้องกว้างเต็ม 100% */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* สำคัญ: ทำให้ padding และ border นับรวมอยู่ใน width/height */
+}
+
+/* กำหนด Font Family และสีพื้นหลังเริ่มต้นสำหรับ Body */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f7f7f7; /* สีพื้นหลังทั่วทั้งหน้าจอ */
+  color: #333; /* สีตัวอักษรพื้นฐาน */
+}
+
+/* ส่วนอื่นๆ ของ global.css ที่คุณอาจมีอยู่แล้ว (เช่น .container, .admin-section)
+   ตรวจสอบให้แน่ใจว่าไม่มีการตั้งค่า display, justify-content, align-items ที่นี่
+   ที่อาจไปขัดแย้งกับ LoginPage.css
+*/
